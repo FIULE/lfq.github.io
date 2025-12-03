@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我现在在干嘛</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap');
+        
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Noto Sans SC', 'Noto Sans SC', sans-serif;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .container {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px 60px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            max-width: 90%;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .status {
+            font-size: 2rem;
+            line-height: 1.6;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+        }
+        
+        .time {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-top: 30px;
+        }
+        
+        .emoji {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        /* 手机端优化 */
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .status { font-size: 1.5rem; }
+            .emoji { font-size: 3rem; }
+            .container { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji" id="emoji">✨</div>
+        <h1>我现在在干嘛</h1>
+        <div class="status" id="status">
+            <!-- ★★★★★ 在这里改你现在的状态 ★★★★★ -->
+            正在肝一个紧急需求，预计凌晨 3 点才能睡 😭
+            <!-- ★★★★★ 修改完毕 ★★★★★ -->
+        </div>
+        <div class="time" id="time"></div>
+    </div>
+
+    <script>
+        // 实时显示北京时间
+        function updateTime() {
+            const now = new Date();
+            const options = { 
+                timeZone: 'Asia/Shanghai',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            document.getElementById('time').textContent = 
+                '当前北京时间：' + now.toLocaleString('zh-CN', options);
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // 你可以在这里加一些自动切换状态的彩蛋（可选）
+        const statuses = [
+            { text: "正在肝一个紧急需求，预计凌晨 3 点才能睡 😭", emoji: "💻" },
+            { text: "已进入贤者模式，摸鱼中 🐟", emoji: "😴" },
+            { text: "吃饭饭去了，30分钟后回来 🍜", emoji: "🍜" },
+            { text: "开会中…救救我 🆘", emoji: "🙇‍♂️" },
+            { text: "写代码写到怀疑人生 🧑‍💻", emoji: "🤯" }
+        ];
+        
+        // 如果你想让状态每30秒自动换一个，就取消下面这行的注释
+        // let i = 0;
+        // setInterval(() => {
+        //     i = (i + 1) % statuses.length;
+        //     document.getElementById('status').textContent = statuses[i].text;
+        //     document.getElementById('emoji').textContent = statuses[i].emoji;
+        // }, 30000);
+    </script>
+</body>
+</html>
