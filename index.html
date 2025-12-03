@@ -1,157 +1,108 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>老子现在在干嘛 · 抽象终极版</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;500;700&display=swap');
-        body {margin:0;min-height:100vh;display:flex;justify-content:center;align-items:center;
-            background:linear-gradient(135deg,#000428,#004e92,#000000);font-family:'Noto Sans SC',sans-serif;color:#fff;overflow:hidden;position:relative;}
-        body::before {content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 80%,rgba(120,0,255,0.4),transparent 50%);pointer-events:none;}
-        .container {background:rgba(255,255,255,0.07);backdrop-filter:blur(18px);border-radius:36px;border:1px solid rgba(255,255,255,0.15);
-            padding:70px 80px;box-shadow:0 30px 100px rgba(0,0,0,0.8);text-align:center;max-width:94%;position:relative;z-index:2;}
-        .online {position:absolute;top:24px;right:28px;background:rgba(0,255,136,0.25);padding:12px 24px;border-radius:50px;
-            font-weight:bold;border:1px solid rgba(0,255,136,0.6);animation:pulse 2s infinite;}
-        h1 {font-size:3.8rem;margin:0 0 50px;background:linear-gradient(90deg,#ff00cc,#3333ff,#00ffcc,#ffff00,#ff00cc);
-            -webkit-background-clip:text;color:transparent;animation:rainbow 6s linear infinite;}
-        .emoji {font-size:8.5rem;margin-bottom:25px;animation:bounce 1.8s infinite;}
-        .status {font-size:3rem;padding:40px;background:rgba(255,255,255,0.12);border-radius:28px;margin:30px 0;
-            font-weight:700;text-shadow:0 0 30px rgba(255,100,255,0.8);animation:glow 3s ease-in-out infinite alternate;}
-        .manual-input input {padding:18px 30px;width:380px;max-width:78%;border:none;border-radius:50px;
-            background:rgba(255,255,255,0.18);color:white;font-size:1.3rem;text-align:center;}
-        .manual-input button {margin-left:15px;padding:18px 36px;border:none;border-radius:50px;
-            background:linear-gradient(45deg,#ff006e,#ffbe0b);color:white;font-weight:bold;cursor:pointer;
-            box-shadow:0 8px 30px rgba(255,0,110,0.6);transition:0.3s;}
-        .manual-input button:hover {transform:scale(1.12);}
-        .time {margin-top:40px;font-size:1.4rem;opacity:0.9;}
-
-        @keyframes bounce {0%,100%{transform:translateY(0)}50%{transform:translateY(-30px)}}
-        @keyframes glow {from{box-shadow:0 0 30px rgba(255,100,255,0.4)}to{box-shadow:0 0 60px rgba(0,255,255,0.8)}}
-        @keyframes rainbow {0%{background-position:0% 50%}100%{background-position:100% 50%}}
-        @keyframes pulse {0%,100%{opacity:1}50%{opacity:0.6}}
-        @media(max-width:600px){.emoji{font-size:6rem;}.status{font-size:2.2rem;}h1{font-size:2.8rem;}}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>老子现在在干嘛</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap');
+body{margin:0;height:100vh;display:flex;justify-content:center;align-items:center;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);font-family:'Noto Sans SC',sans-serif;color:#fff;overflow:hidden;position:relative;}
+.container{background:rgba(255,255,255,0.1);backdrop-filter:blur(20px);border-radius:30px;padding:60px 80px;box-shadow:0 20px 60px rgba(0,0,0,0.6);text-align:center;max-width:90%;}
+h1{font-size:3.6rem;margin:0 0 40px;background:linear-gradient(90deg,#ff9a9e,#fad0c4,#a8edea,#fed6e3);-webkit-background-clip:text;color:transparent;animation:rainbow 8s linear infinite;}
+.emoji{font-size:8rem;margin:20px 0;animation:bounce 2s infinite;}
+.status{font-size:2.8rem;padding:30px;background:rgba(255,255,255,0.12);border-radius:20px;margin:30px 0;min-height:100px;}
+.input-box{margin-top:30px;}
+.input-box input{padding:16px 24px;width:300px;border:none;border-radius:50px;background:rgba(255,255,255,0.2);color:#fff;font-size:1.2rem;text-align:center;}
+.input-box button{margin-left:10px;padding:16px 32px;border:none;border-radius:50px;background:#ff4757;color:#fff;font-weight:bold;cursor:pointer;}
+.online{position:absolute;top:20px;right:30px;background:rgba(0,255,136,0.3);padding:10px 20px;border-radius:30px;}
+.time{margin-top:30px;font-size:1.3rem;opacity:0.9;}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-25px)}}
+@keyframes rainbow{0%{background-position:0%}100%{background-position:100%}}
+</style>
 </head>
 <body>
 <div class="container">
-    <div class="online" id="online">当前 1 个憨批在偷看</div>
-    <h1>老子现在在干嘛</h1>
-    <div class="emoji" id="emoji">✨</div>
-    <div class="status" id="status">加载中…</div>
-    <div class="manual-input">
-        <input type="text" id="manual" placeholder="手动爆料真实状态（回车也行）">
-        <button onclick="setManual()">立刻发布</button>
-    </div>
-    <div class="time" id="time"></div>
+  <div class="online" id="online">加载人数…</div>
+  <h1>老子现在在干嘛</h1>
+  <div class="emoji" id="emoji">🚀</div>
+  <div class="status" id="status">状态获取中…</div>
+  <div class="input-box">
+    <input type="text" id="manual" placeholder="手动输入真实状态，回车发布">
+    <button onclick="setManual()">发布</button>
+  </div>
+  <div class="time" id="time"></div>
 </div>
 
 <script>
-// 手动状态（永不丢失）
-let manualStatus = localStorage.getItem('realStatus') || null;
+// 手动状态（刷新不丢）
+let manual = localStorage.getItem('status')||null;
 
-// 抽象状态库（可无限加！！！）
-const crazy = {
-    "上班": {e:"💼", t:"上班！真的在上班！别打扰我装样子！"},
-    "死了: {e:"💀", t:"社畜已死，有事烧纸，微信转账也行"},
-    睡觉: {e:"😴", t:"睡觉中…打扰我者全家爆金币（负的）"},
-    刷手机: {e:"🤳", t:"刷到手机发烫，眼睛已瞎，明天润了"},
-    拉屎: {e:"🚽", t:"正在拉屎，排队请稍后，三小时起步"},
-    摸鱼: {e:"🐟", t:"摸鱼大师，在线隐身，领导看不见我"},
-    摆烂: {e:"🛌", t:"已摆烂，谁爱干谁干，我躺平了"},
-    加班: {e:"😭", t:"加班加到自闭，老板祝你暴毙"},
-    吃瓜: {e:"🍉", t:"吃瓜不嫌事大，在线围观抽象事件"},
-    暴富: {e:"🤑", t:"正在暴富的路上（做梦）"},
-    跑路: {e:"🏃‍♂️", t:"已跑路，明天见，工资不要了"},
-    寄: {e:"⚰️", t:"寄了，下辈子再见"},
-    似: {e:"✝️", t:"似了，火化费你出"},
-    玉玉: {e:"😞", t:"玉玉了，情绪稳定寄"},
-    脑死: {e:"🧠💥", t:"大脑已离家出走，勿cue"},
-    发癫: {e:"🤪", t:"正在发癫，理智已下班"},
-    狂喜: {e:"🤩", t:"狂喜！中了五个亿（梦里）"},
-    破防: {e:"😡", t:"破防了，寄！寄！寄！"},
-    寄寄寄: {e:"💨", t:"寄寄寄寄寄寄寄寄寄寄"},
-    润: {e:"✈️", t:"润了，去火星找马斯克"},
-    爪巴: {e:"👋", t:"爪巴，勿扰，滚"},
-    喝茶: {e:"🍵", t:"喝茶等通知（纪委的）"},
-    冲浪: {e:"🏄", t:"互联网冲浪一级选手，淹死了"},
-    抽象: {e:"🌪️", t:"抽象发言中，勿信"},
-    黑化: {e:"😈", t:"已黑化，准备搞事"},
-    收汁: {e:"🔥", t:"收汁！扬了！"},
-    扬了: {e:"💥", t:"扬了扬了，明天上香"},
-    似曾相识: {e:"👻", t:"似曾相识的寄"},
-    摆大烂: {e:"🤮", t:"摆大烂，谁爱管谁管"},
-    隐身: {e:"🫥", t:"隐身中，领导看不见我"},
-    假装忙: {e:"🖥️", t:"假装在忙，其实在摸鱼"},
-    想辞职: {e:"🚪", t:"想辞职，想润，想寄"},
-    想开摆: {e:"😵‍💫", t:"想开摆，想润学，想似"},
-    社保: {e:"🏥", t:"社保已白嫖，寄！"},
-    社保寄: {e:"🪦", t:"社保已寄，火化吧"},
-    社保没白交: {e:"💰", t:"社保没白交，寄！"},
-    社保白交: {e:"😿", t:"社保白交了，寄！"},
-    电诈: {e:"📱", t:"正在被电诈，救救我"},
-    缅北: {e:"🇲🇲", t:"人在缅北，刚下飞机的感觉"},
-    刚被开除: {e:"📤", t:"刚被开除，开心死了"},
-    刚辞职: {e:"🖕", t:"刚辞职，明天润了"},
-    润了: {e:"🌍", t:"已润，坐标火星"},
-    似曾相识的润: {e:"👽", t:"似曾相识的润"},
-    寄中寄: {e:"🪦", t:"寄中寄，扬中扬"},
-    扬中扬: {e:"☄️", t:"扬中扬，寄中寄"},
-    收大汁: {e:"🔥", t:"收大汁！扬了扬了！"},
-    似了: {e:"⚰️", t:"似了，明天见"},
-    明天见: {e:"👋", t:"明天见（下辈子）"},
-    爪巴: {e:"🖐️", t:"爪巴，滚，勿cue"},
-    寄寄寄寄寄: {e:"💨", t:"寄寄寄寄寄寄寄寄寄寄寄寄寄寄寄"}
-};
+// 抽象状态库（已修复所有语法错误！）
+const list = [
+  {k:"上班",     e:"💼", t:"上班！真的在上班！别打扰我装样子！"},
+  {k:"死了",     e:"💀", t:"社畜已死，有事烧纸"},
+  {k:"睡觉",     e:"😴", t:"睡觉中…打扰枪毙"},
+  {k:"刷手机",   e:"🤳", t:"刷到手机发烫，眼睛已瞎"},
+  {k:"拉屎",     e:"🚽", t:"正在拉屎，三小时起步"},
+  {k:"摸鱼",     e:"🐟", t:"摸鱼大师，领导看不见我"},
+  {k:"摆烂",     e:"🛌", t:"已摆烂，谁爱干谁干"},
+  {k:"缅北",     e:"🇲🇲", t:"人在缅北，刚下飞机"},
+  {k:"寄",       e:"⚰️", t:"寄了，下辈子见"},
+  {k:"润",       e:"✈️", t:"润了，去火星找马斯克"},
+  {k:"爪巴",     e:"🖐️", t:"爪巴，滚"},
+  {k:"收大汁",   e:"🔥", t:"收大汁！扬了扬了！"},
+  {k:"寄中寄",   e:"🪦", t:"寄中寄，扬中扬"},
+  {k:"社保白交", e:"😿", t:"社保白交了，寄！"}
+  // 想加更多就继续往这里加，格式一样就行
+];
 
-const randomPool = Object.keys(crazy).filter(k => k !== "上班");
-
-function getAuto() {
-    const n = new Date();
-    const m = n.getHours()*60 + n.getMinutes();
-    if ((m>=510&&m<=690) || (m>=811&&m<=990)) return "上班"; // 08:30–11:30 & 13:31–16:30
-    return randomPool[Math.floor(Math.random()*randomPool.length)];
+function getAuto(){
+  const d=new Date();
+  const m=d.getHours()*60 + d.getMinutes();
+  if((m>=510&&m<=690)||(m>=811&&m<=990)) return "上班";
+  const ran = list.filter(x=>x.k!=="上班");
+  return ran[Math.floor(Math.random()*ran.length)].k;
 }
 
-function update() {
-    const key = manualStatus || getAuto();
-    const {e,t} = crazy[key] || {e:"🤡", t:key};
-    document.getElementById('emoji').textContent = e;
-    document.getElementById('status').textContent = t;
+function update(){
+  const cur = list.find(x=>x.k === (manual || getAuto()));
+  if(cur){
+    document.getElementById("emoji").textContent = cur.e;
+    document.getElementById("status").textContent = cur.t;
+  }
 }
 
-function setManual() {
-    const i = document.getElementById('manual');
-    const v = i.value.trim();
-    if(v){
-        manualStatus = v;
-        localStorage.setItem('realStatus',v);
-        i.placeholder = '已发布：' + v;
-    }else{
-        manualStatus = null;
-        localStorage.removeItem('realStatus');
-        i.placeholder = '已恢复自动抽象状态';
-    }
-    i.value='';
+function setManual(){
+  const v = document.getElementById("manual").value.trim();
+  if(v){
+    manual = v;
+    localStorage.setItem('status',v);
+    document.getElementById("status").textContent = v;
+    document.getElementById("emoji").textContent = "✨";
+  }else{
+    manual=null;
+    localStorage.removeItem('status');
     update();
+  }
+  document.getElementById("manual").value="";
 }
 
 // 在线人数
-fetch('https://api.countapi.xyz/hit/fiule-lfq-abstract/visit')
-    .then(r=>r.json())
-    .then(d=>document.getElementById('online').textContent = `当前 ${d.value} 个憨批在偷看`);
+fetch('https://api.countapi.xyz/hit/fiule-lfq-2025/visit')
+  .then(r=>r.json())
+  .then(d=>document.getElementById("online").textContent=`当前 ${d.value} 个人偷看`)
+  .catch(()=>document.getElementById("online").textContent="人数统计寄了");
 
 // 时间
-function time() {
-    const n=new Date();
-    const o={timeZone:'Asia/Shanghai',hour12:false,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit'};
-    document.getElementById('time').textContent = '北京时间 ' + n.toLocaleString('zh-CN',o);
-}
+setInterval(()=>{
+  const d=new Date().toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',hour12:false});
+  document.getElementById("time").textContent = '北京时间 ' + d;
+},1000);
 
-update(); time();
-setInterval(update,10000);
-setInterval(time,1000);
-document.getElementById('manual').addEventListener('keypress',e=>{if(e.key==='Enter')setManual();});
+// 启动
+update();
+document.getElementById("manual").addEventListener("keydown",e=>{if(e.key==="Enter")setManual();});
+setInterval(update,12000);
 </script>
 </body>
 </html>
